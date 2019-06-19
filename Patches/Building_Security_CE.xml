@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<success></success>
+		<operations>
+			<li Class="CombatExtended.PatchOperationFindMod">
+				<modName>Rimsenal - Security pack</modName>
+			</li>
+			
+			<!-- ========== Nest Missile ========== -->
+
+			<li Class="CombatExtended.PatchOperationMakeGunCECompatible">
+				<defName>Gun_NestMissile</defName>
+				<statBases>
+					<RangedWeapon_Cooldown>0.36</RangedWeapon_Cooldown>
+					<SightsEfficiency>1</SightsEfficiency>
+					<ShotSpread>0.02</ShotSpread>
+					<SwayFactor>1.89</SwayFactor>
+					<Bulk>7.50</Bulk>
+				</statBases>
+				<Properties>
+					<recoilAmount>1.13</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_84x246mmR_HEAT</defaultProjectile>
+					<warmupTime>1.1</warmupTime>
+					<range>126</range>
+					<soundCast>RS_ShotGrendel</soundCast>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>12</muzzleFlashScale>
+					<recoilPattern>Mounted</recoilPattern>
+				</Properties>
+				<AmmoUser>
+					<magazineSize>1</magazineSize>
+					<reloadTime>4</reloadTime>
+					<ammoSet>AmmoSet_84x246mmR</ammoSet>
+				</AmmoUser>
+				<FireModes>
+				</FireModes>
+				<weaponTags>
+					<li>TurretGun</li>
+				</weaponTags>
+			</li>
+			
+			<!-- ========== Molten Cannon ========== -->
+
+			<li Class="CombatExtended.PatchOperationMakeGunCECompatible">
+				<defName>Artillery_MC</defName>
+				<statBases>
+					<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+					<SightsEfficiency>2.5</SightsEfficiency>
+					<ShotSpread>0.02</ShotSpread>
+					<SwayFactor>1.10</SwayFactor>
+				</statBases>
+				<Properties>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_MoltenCannonShell</defaultProjectile>
+					<warmupTime>2.3</warmupTime>
+					<range>86</range>
+					<soundCast>RS_ShotJI</soundCast>
+					<muzzleFlashScale>16</muzzleFlashScale>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<recoilPattern>Mounted</recoilPattern>
+				</Properties>
+				<AmmoUser>
+					<magazineSize>4</magazineSize>
+					<reloadTime>8</reloadTime>
+					<spawnUnloaded>false</spawnUnloaded>
+					<ammoSet>AmmoSet_MoltenCannonShell</ammoSet>
+				</AmmoUser>
+				<FireModes>
+					<aiAimMode>AimedShot</aiAimMode>
+				</FireModes>
+				<weaponTags>
+					<li>TurretGun</li>
+				</weaponTags>
+			</li>
+			
+			<!-- ========== Rocket Turret ========== -->
+
+			<li Class="CombatExtended.PatchOperationMakeGunCECompatible">
+				<defName>Gun_RocketTurret</defName>
+				<statBases>
+					<RangedWeapon_Cooldown>2.3</RangedWeapon_Cooldown>
+					<SightsEfficiency>2.5</SightsEfficiency>
+					<ShotSpread>0.13</ShotSpread>
+					<SwayFactor>1.38</SwayFactor>
+				</statBases>
+				<Properties>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_90mmJI_HEDP</defaultProjectile>
+					<warmupTime>3.7</warmupTime>
+					<range>86</range>
+					<burstShotCount>4</burstShotCount>
+					<ticksBetweenBurstShots>12</ticksBetweenBurstShots>
+					<soundCast>RS_ShotGrendel</soundCast>
+					 <soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>12</muzzleFlashScale>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<recoilPattern>Mounted</recoilPattern>
+				</Properties>
+				<AmmoUser>
+					<magazineSize>20</magazineSize>
+					<reloadTime>8</reloadTime>
+					<spawnUnloaded>false</spawnUnloaded>
+					<ammoSet>AmmoSet_90mmJIRocket</ammoSet>
+				</AmmoUser>
+				<FireModes>
+					<aiAimMode>AimedShot</aiAimMode>
+				</FireModes>
+				<weaponTags>
+					<li>TurretGun</li>
+				</weaponTags>
+			</li>
+			
+			<!-- ========== Common to all Defensive Turrets ========== -->
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[
+					defName="Turret_MC" or
+					defName="RocketTurret" or
+					defName="NestMissile"
+				]/thingClass</xpath>
+				<value>
+					<thingClass>CombatExtended.Building_TurretGunCE</thingClass>
+				</value>
+			</li>
+
+			<li Class="PatchOperationRemove">
+				<xpath>Defs/ThingDef[
+					defName="NestMissile" or
+					defName="RocketTurret"
+				]/comps/li[@Class = "CompProperties_Refuelable"]</xpath>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[
+					defName="Turret_MC" or
+					defName="NestMissile"
+				]/statBases</xpath>
+				<value>
+					<AimingAccuracy>0.5</AimingAccuracy>
+				</value>
+			</li>
+			
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[
+					defName="RocketTurret"
+				]/statBases</xpath>
+				<value>
+					<AimingAccuracy>1</AimingAccuracy>
+				</value>
+			</li>
+
+		</operations>	
+	</Operation>
+
+</Patch>

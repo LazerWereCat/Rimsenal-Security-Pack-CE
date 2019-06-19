@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>AmmoMoltenCannonShell</defName>
+      <label>Molten Cannon Shell</label>
+      <parent>AmmoHighCaliber</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberHighCaliber</iconPath>
+    </ThingCategoryDef>
+  
+  <!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_MoltenCannonShell</defName>
+    <label>Molten Cannon Shell</label>
+    <ammoTypes>
+      <Ammo_MoltenCannonShell>Bullet_MoltenCannonShell</Ammo_MoltenCannonShell>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+  
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="AmmoMoltenCannonShellBase" ParentName="SmallAmmoBase" Abstract="True">
+    <description>A heavy composite metal shell that design to be fired by large calibre molten weapons.</description>
+    <statBases>
+    <Mass>0.196</Mass>
+    <Bulk>0.21</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting</li>
+    </tradeTags>
+    <thingCategories>
+      <li>AmmoMoltenCannonShell</li>
+    </thingCategories>
+    <stackLimit>100</stackLimit>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="AmmoMoltenCannonShellBase">
+    <defName>Ammo_MoltenCannonShell</defName>
+    <label>Molten Cannon Shell cartridge</label>
+    <graphicData>
+      <texPath>Things/Item/MoltenShell</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>12</MarketValue>
+    </statBases>
+    <ammoClass>MoltenSlug</ammoClass>
+    <cookOffProjectile>Bullet_MoltenCannonShell</cookOffProjectile>
+  </ThingDef>
+
+  <!-- ================== Projectiles ================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="BaseMoltenCannonShellBullet" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Shell</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Bullet</damageDef>
+      <speed>193</speed>
+      <dropsCasings>true</dropsCasings>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseMoltenCannonShellBullet">
+    <defName>Bullet_MoltenCannonShell</defName>
+    <label>Molten Cannon Shell</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageAmountBase>50</damageAmountBase>
+      <armorPenetrationBase>1.46</armorPenetrationBase>
+      <secondaryDamage>
+        <li>
+          <def>Bomb_Secondary</def>
+          <amount>30</amount>
+        </li>
+      </secondaryDamage>
+    </projectile>
+  </ThingDef>
+  
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_MoltenCannonShell</defName>
+    <label>make Molten Cannon Shell cartridge x100</label>
+    <description>Craft 100 Molten Cannon Shell cartridges.</description>
+    <jobString>Making Molten Cannon Shell cartridges.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>21</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>FSX</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_MoltenCannonShell>100</Ammo_MoltenCannonShell>
+    </products>
+    <workAmount>15000</workAmount>
+  </RecipeDef>
+
+</Defs>
